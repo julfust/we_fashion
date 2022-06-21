@@ -83,8 +83,8 @@ Oragnisation:
 
 1) Migration et fixtures:
 -> Elaboration diagramme données
--> Création migration
--> Création factory + seeder
+-> Création migration V
+-> Création factory + seeder V
 
 2) Affichage partie cliente (pas de partie achat)
 
