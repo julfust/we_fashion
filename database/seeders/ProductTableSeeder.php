@@ -39,7 +39,7 @@ class ProductTableSeeder extends Seeder
                 'link' => $picturesList[rand(0, count($picturesList) - 1)]
             ]);
 
-            $sizes = Size::pluck('id')->shuffle()->slice(0, rand(1, 3))->all();
+            $sizes = Size::all();
             $product->sizes()->attach($sizes);
 
             $product->save();

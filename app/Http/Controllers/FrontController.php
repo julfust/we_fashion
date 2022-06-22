@@ -23,4 +23,11 @@ class FrontController extends Controller
 
         return view('front.index', ['products' => $products]);
     }
+
+    public function show(int $id) {
+
+        $product = Product::find($id);
+
+        return view('front.show', ['product' => $product]);
+    }
 }

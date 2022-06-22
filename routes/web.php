@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get( '/', [ FrontController::class, 'index' ] );
+
+Route::get('product/{id}', [ FrontController::class, 'show' ])->where(['id' => '[0-9]+']);
