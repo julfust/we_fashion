@@ -28,6 +28,6 @@ class FrontController extends Controller
 
         $product = Product::find($id);
 
-        return view('front.show', ['product' => $product]);
+        return view('shared.show', ['product' => $product]);
     }
 }

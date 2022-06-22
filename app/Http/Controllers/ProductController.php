@@ -49,7 +49,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('shared.show', ['product' => $product]);
     }
 
     /**
