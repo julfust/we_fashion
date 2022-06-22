@@ -57,7 +57,7 @@
                     <a class="btn btn-primary">Modifier</a>
                 </td>
                 <td>
-                    <form action="" method="POST">
+                    <form action="{{route('products.destroy', $product->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type="submit">Supprimer</button>
