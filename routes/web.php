@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ProductController;
 use App\Models\Size;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
+Route::resource('admin/products', ProductController::class)->middleware('auth');
+
 Route::get( '/', [ FrontController::class, 'index' ] );
 
 Route::get('product/{id}', [ FrontController::class, 'show' ])->where(['id' => '[0-9]+']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

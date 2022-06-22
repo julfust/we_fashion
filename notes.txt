@@ -82,11 +82,10 @@ A rendre: Archive Zip
 Oragnisation:
 
 1) Migration et fixtures:
--> Elaboration diagramme données
 -> Création migration V
 -> Création factory + seeder V
 
-2) Affichage partie cliente (pas de partie achat)
+2) Affichage partie cliente (pas de partie achat) V
 
 3) Affichage partie admin
 
@@ -95,10 +94,12 @@ Oragnisation:
 5) Finalisation partie cliente:
 -> Filtrage liste des produits categories
 -> Formulaire achat d'un produit
+-> Intégration footer
 
 6) Finalisation partie admin:
 -> Upload image produit
 
+7) Elaboration diagramme données
 
 UML:
 
