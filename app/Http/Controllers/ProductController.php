@@ -39,7 +39,24 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $sizes = Size::all();
+        
+        $productCategoryId = null;
+        $checkedSizes = [];
+        $isPublished = false;
+        $isPromoted = false;
+
+        return view('back.product.edit', 
+            [
+                'product' => null, 
+                'categories' => $categories, 
+                'sizes' => $sizes,
+                'productCategoryId' => $productCategoryId, 
+                'checkedSizes' => $checkedSizes,
+                'isPublished' => $isPublished,
+                'isPromoted' => $isPromoted
+            ]);
     }
 
     /**
@@ -48,9 +65,12 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $productRequest)
     {
-        //
+        $product = Product::create($productRequest->all());
+        $product->sizes()->attach($productRequest->sizes);
+
+        return redirect()->route('products.index')->with('message', 'Livre ajouté !');
     }
 
     /**
@@ -77,14 +97,27 @@ class ProductController extends Controller
         $product = Product::find($id);
         $categories = Category::all();
         $sizes = Size::all();
+        
+        $productCategoryId = $product->category->id;
         $checkedSizes = [];
 
         foreach($product->sizes as $size) {
             $checkedSizes[] = $size->id;
         }
 
+        $isPublished = $product->isPublished === 1;
+        $isPromoted = $product->isPromoted === 1;
+
         return view('back.product.edit',
-            ['product' => $product, 'categories' => $categories, 'sizes' => $sizes, 'checkedSizes' => $checkedSizes]
+            [
+                'product' => $product, 
+                'categories' => $categories, 
+                'sizes' => $sizes, 
+                'productCategoryId' => $productCategoryId, 
+                'checkedSizes' => $checkedSizes,
+                'isPublished' => $isPublished,
+                'isPromoted' => $isPromoted
+            ]
         );
     }
 

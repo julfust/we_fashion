@@ -10252,3 +10252,11 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+
+/* Custom css */
+.nav-item:hover {
+
+  border-radius: 0.25rem !important;
+  background-color: #d9dce0 !important;
+}

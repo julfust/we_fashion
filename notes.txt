@@ -90,6 +90,7 @@ Oragnisation:
 3) Affichage partie admin V
 
 4) Intégration CRUD partie admin (pas d'upload d'image)
+-> Intégration systeme de validation
 
 5) Finalisation partie cliente:
 -> Filtrage liste des produits categories
@@ -100,6 +101,8 @@ Oragnisation:
 -> Upload image produit
 
 7) Elaboration diagramme données
+
+8) Responsive
 
 UML:
 

@@ -9,7 +9,7 @@
         <div class="d-flex justify-content-center align-items-start mb-4">
 
             <div class="w-50">
-                <img src="{{asset('/images/' . $product->picture->link)}}" class="w-100" alt="" />
+                <img src="{{ asset($product->picture ? '/images/' . $product->picture->link : '/images/no_picture.png') }}" class="w-100" alt="" />
             </div>
 
             <div class="w-50 ms-4">
@@ -29,21 +29,14 @@
                     </select>
                 </div>
 
-                <button type="button" class="btn btn-primary">Acheter</button>
+                @if(!Auth::check())
+                    <button type="button" class="btn btn-primary">Acheter</button>
+                @endif
             </div>
         </div>
 
         <p class="fs-4">{{ $product->description }}</p>
     </div>
-
-    <!-- <div class="card m-3" style="width: 18rem;">
-        <img src="{{asset('/images/' . $product->picture->link)}}" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{ $product->title }}</h5>
-            <p class="card-text">{{ $product->description }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div> -->
 </div>
 
 @endsection
