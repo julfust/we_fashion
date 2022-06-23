@@ -87,7 +87,7 @@ Oragnisation:
 
 2) Affichage partie cliente (pas de partie achat) V
 
-3) Affichage partie admin
+3) Affichage partie admin V
 
 4) Intégration CRUD partie admin (pas d'upload d'image)
 

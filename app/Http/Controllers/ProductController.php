@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        view()->composer('partials.menu', function($view){
+            $categories = Category::pluck('name', 'id')->all();
+            $view->with('categories', $categories);
+        });
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -62,7 +73,18 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $categories = Category::all();
+        $sizes = Size::all();
+        $checkedSizes = [];
+
+        foreach($product->sizes as $size) {
+            $checkedSizes[] = $size->id;
+        }
+
+        return view('back.product.edit',
+            ['product' => $product, 'categories' => $categories, 'sizes' => $sizes, 'checkedSizes' => $checkedSizes]
+        );
     }
 
     /**

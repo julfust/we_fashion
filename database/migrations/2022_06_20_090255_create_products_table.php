@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id')->unsigned();
             $table->string('title', 100);
             $table->text('description')->nullable();
-            $table->decimal('price', 5);
+            $table->decimal('price');
             $table->boolean('isPublished');
             $table->boolean('isPromoted');
             $table->string('productRef', 16);

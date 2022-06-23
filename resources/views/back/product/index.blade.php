@@ -54,7 +54,7 @@
                     <a class="btn btn-primary" href="{{url('admin/products', $product->id)}}">Détail</a>
                 </td>
                 <td>
-                    <a class="btn btn-primary">Modifier</a>
+                    <a class="btn btn-primary" href="{{route('products.edit', $product->id)}}">Modifier</a>
                 </td>
                 <td>
                     <form action="{{route('products.destroy', $product->id)}}" method="POST">

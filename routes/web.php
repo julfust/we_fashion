@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProductController;
-use App\Models\Size;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
