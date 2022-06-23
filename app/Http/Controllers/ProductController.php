@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Size;
@@ -94,9 +95,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $productRequest, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->update($productRequest->all());
+
+        $product->sizes()->sync($productRequest->sizes);
+        return redirect()->route('products.index')->with('message', 'Modification OK');
     }
 
     /**
