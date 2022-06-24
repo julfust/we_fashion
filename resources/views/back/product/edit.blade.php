@@ -4,7 +4,7 @@
 
     <div class="w-full d-flex flex-column justify-content-start align-items-center py-5">
         
-        <form action="{{ $product ? route('products.update', $product->id) : route('products.store') }}" method="POST" class="w-50">
+        <form action="{{ !$product ? route('products.store') : route('products.update', $product->id) }}" method="POST" class="w-50">
             @csrf
             @method(!$product ? 'POST' : 'PUT')
 
@@ -33,6 +33,9 @@
                 <div class="col-12">
                     <label for="category" class="form-label">Catégorie</label>
                     <select id="category" name="category_id" class="form-select">
+                        @if(!$productCategoryId)
+                            <option value="" disabled selected>Veuillez sélectionner une catégorie</option>
+                        @endif
                         @forelse($categories as $category)
                             <option value="{{$category->id}}" {{ $productCategoryId === $category->id ? 'selected' : '' }}>{{$category->name}}</option>
                         @empty

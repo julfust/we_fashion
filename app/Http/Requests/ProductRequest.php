@@ -24,7 +24,19 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+        //     'title' => 'required|min:5',
+        //     'price' => 'required',
+        //     'productRef' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+        //     'title.required' => 'Veuillez renseigner le titre du produit',
+        //     'title.min' => 'Le titre doit faire plus de 5 caractère',
+        //     'price.required' => 'Veuillez renseigner le prix du produit',
+        //     'productRef.required' => 'Veuillez renseigner la référence du produit',
         ];
     }
 }

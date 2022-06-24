@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::resource('admin/products', ProductController::class)->middleware('auth');
+
+Route::resource('admin/categories', CategoryController::class)->middleware('auth');
 
 Route::get('admin/products/{id}', [ ProductController::class, 'show' ])->where(['id' => '[0-9]+'])->middleware('auth');
 

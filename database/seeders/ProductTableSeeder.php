@@ -26,7 +26,7 @@ class ProductTableSeeder extends Seeder
             'name' => 'femmes'
         ]);
 
-        Product::factory()->count(30)->create()->each(function($product) {
+        Product::factory()->count(80)->create()->each(function($product) {
 
             $category = Category::find(rand(1, 2));
 

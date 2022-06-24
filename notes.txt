@@ -89,20 +89,23 @@ Oragnisation:
 
 3) Affichage partie admin V
 
-4) Intégration CRUD partie admin (pas d'upload d'image)
--> Intégration systeme de validation
+4) Intégration CRUD product partie admin (pas d'upload d'image) V
 
-5) Finalisation partie cliente:
+5) Refaire le CURD pour les catégories V
+
+6) Intégration systeme de validation (formulaire product et category)
+
+7) Finalisation partie cliente:
 -> Filtrage liste des produits categories
 -> Formulaire achat d'un produit
 -> Intégration footer
 
-6) Finalisation partie admin:
+8) Finalisation partie admin:
 -> Upload image produit
 
-7) Elaboration diagramme données
+9) Elaboration diagramme données
 
-8) Responsive
+10) Responsive
 
 UML:
 

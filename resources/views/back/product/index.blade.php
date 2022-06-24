@@ -8,6 +8,12 @@
         </div>
     @endif
 
+    <div class="w-100 d-flex justify-content-end align-items-start py-3">
+        <a aria-current="page" href="{{route('products.create')}}">
+            <button class="btn btn-outline-primary">Nouveau</button>
+        </a>
+    </div>
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -44,11 +50,8 @@
                 <td>
                     {{$product->productRef }}
                 </td>
-                <td>
-                    {{$product->category->name }}
-                </td>
-                <td>
-                    <p>STATUS TODO</p>
+                <td class="{{ !$product->category ? 'text-danger fw-bold' : '' }}">
+                    {{ $product->category ? $product->category->name : "non définie" }}
                 </td>
                 <td>
                     <a class="btn btn-primary" href="{{url('admin/products', $product->id)}}">Détail</a>

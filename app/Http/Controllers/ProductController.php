@@ -26,10 +26,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
-        return view('back.product.index', [
-            'products' => $products
-        ]);
+        $products = Product::paginate(15);
+
+        return view('back.product.index', ['products' => $products]);
     }
 
     /**
@@ -47,7 +46,8 @@ class ProductController extends Controller
         $isPublished = false;
         $isPromoted = false;
 
-        return view('back.product.edit', 
+        return view(
+            'back.product.edit', 
             [
                 'product' => null, 
                 'categories' => $categories, 
@@ -56,7 +56,8 @@ class ProductController extends Controller
                 'checkedSizes' => $checkedSizes,
                 'isPublished' => $isPublished,
                 'isPromoted' => $isPromoted
-            ]);
+            ]
+        );
     }
 
     /**
@@ -70,7 +71,7 @@ class ProductController extends Controller
         $product = Product::create($productRequest->all());
         $product->sizes()->attach($productRequest->sizes);
 
-        return redirect()->route('products.index')->with('message', 'Livre ajouté !');
+        return redirect()->route('products.index')->with('message', 'Produit ajouté !');
     }
 
     /**
@@ -98,7 +99,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $sizes = Size::all();
         
-        $productCategoryId = $product->category->id;
+        $productCategoryId = $product->category ? $product->category->id : null;
         $checkedSizes = [];
 
         foreach($product->sizes as $size) {
@@ -108,7 +109,8 @@ class ProductController extends Controller
         $isPublished = $product->isPublished === 1;
         $isPromoted = $product->isPromoted === 1;
 
-        return view('back.product.edit',
+        return view(
+            'back.product.edit',
             [
                 'product' => $product, 
                 'categories' => $categories, 
@@ -134,7 +136,7 @@ class ProductController extends Controller
         $product->update($productRequest->all());
 
         $product->sizes()->sync($productRequest->sizes);
-        return redirect()->route('products.index')->with('message', 'Modification OK');
+        return redirect()->route('products.index')->with('message', 'Modification enregistré');
     }
 
     /**
