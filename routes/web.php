@@ -27,10 +27,10 @@ Route::get('admin/products/{id}', [ ProductController::class, 'show' ])->where([
 
 Route::get( '/', [ FrontController::class, 'index' ] );
 
+Route::get('products/{id}', [ FrontController::class, 'show' ])->where(['id' => '[0-9]+']);
+
 Route::get('products/promotion', [ FrontController::class, 'showPromotion' ] );
 
-Route::get('products/{category}', [ FrontController::class, 'showProductByCategory' ] );
-
-Route::get('products/{id}', [ FrontController::class, 'show' ])->where(['id' => '[0-9]+']);
+Route::get('products/{category}', [ FrontController::class, 'showProductByCategory' ] )->where(['category' => '[a-zA-Z]+']);;
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
