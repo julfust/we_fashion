@@ -52,17 +52,12 @@
                         <label class="form-check-label" for="{{$size->value}}">{{$size->value}}</label>
                     </div>
                     @endforeach
-                    @error('sizes')
-                        <div class="alert alert-danger" role="alert">
-                            {{$message}}
-                        </div>
-                    @enderror
                 </div>
 
                 <div class="col-12">
                     <label for="price" class="form-label">Prix</label>
                     <input type="number" id="price" name="price" step="0.01" class="form-control" value="{{ $product ? old('price', $product->price) : '' }}">
-                    @error('title')
+                    @error('price')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
                         </div>
@@ -72,7 +67,7 @@
                 <div class="col-12">
                     <label for="productRef" class="form-label">Référence du produit</label>
                     <input type="text" id="productRef" name="productRef" class="form-control" value="{{ $product ? old('productRef', $product->productRef) : '' }}">
-                    @error('title')
+                    @error('productRef')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
                         </div>

@@ -83,7 +83,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $categoryRequest, $id)
+    public function update(CategoryRequest $categoryRequest, $id)
     {
         $category = Category::find($id);
         $category->update($categoryRequest->all());

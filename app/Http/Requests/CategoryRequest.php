@@ -23,8 +23,11 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return ['name' => 'required',];
+    }
+
+    public function messages()
+    {
+        return ['name.required' => 'Veuillez renseigner le nom de la catégorie'];
     }
 }

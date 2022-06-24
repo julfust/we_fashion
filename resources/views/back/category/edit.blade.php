@@ -13,7 +13,7 @@
                 <div class="col-12">
                     <label for="title" class="form-label">Titre</label>
                     <input type="text" id="name" name="name" class="form-control" value="{{ $category ? old('title', $category->name) : '' }}">
-                    @error('title')
+                    @error('name')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
                         </div>

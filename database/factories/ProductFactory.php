@@ -22,7 +22,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 1, 999),
             'isPublished' => $this->faker->boolean(),
             'isPromoted' => $this->faker->boolean(),
-            'productRef' => $this->faker->regexify('[A-Za-z0-9]{13}'),
+            'productRef' => $this->faker->regexify('[A-Za-z0-9]{16}'),
             'created_at' => $this->faker->dateTime()
         ];
     }
