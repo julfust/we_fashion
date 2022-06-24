@@ -17,7 +17,7 @@ class FrontController extends Controller
 
     public function index() {
 
-        $products = Product::paginate(5);
+        $products = Product::paginate(6);
 
         return view('front.index', ['products' => $products]);
     }
@@ -27,5 +27,20 @@ class FrontController extends Controller
         $product = Product::find($id);
 
         return view('shared.show', ['product' => $product]);
+    }
+
+    public function showPromotion() {
+
+        $products = Product::where('isPromoted', 1)->paginate(6);
+
+        return view('front.index', ['products' => $products]);
+    }
+
+    public function showProductByCategory(string $category) {
+
+        $category = Category::where('name', $category)->first();
+        $products = Product::where('category_id', $category->id)->paginate(6);
+
+        return view('front.index', ['products' => $products]);
     }
 }

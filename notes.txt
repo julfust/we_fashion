@@ -93,15 +93,16 @@ Oragnisation:
 
 5) Refaire le CURD pour les catégories V
 
-6) Intégration systeme de validation (formulaire product et category)
+6) Intégration systeme de validation (formulaire product et category) V
 
 7) Finalisation partie cliente:
 -> Filtrage liste des produits categories
 -> Formulaire achat d'un produit
--> Intégration footer
 
 8) Finalisation partie admin:
 -> Upload image produit
+
+9) Intégration footer
 
 9) Elaboration diagramme données
 
