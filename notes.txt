@@ -101,11 +101,15 @@ Oragnisation:
 8) Finalisation partie admin:
 -> Upload image produit V
 
-9) Intégration footer
+9) Intégration footer V
 
-9) Elaboration diagramme données
+10) Elaboration diagramme données + notes de rendu
 
-10) Responsive
+11) Intégration modal confirm suppresion
+
+12) Correction bug formulaire (récupération veille donnée lors du reload)
+
+13) Responsive
 
 UML:
 
