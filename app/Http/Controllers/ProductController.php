@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        view()->composer('partials.menu', function($view){
+        view()->composer('shared.menu', function($view){
             $categories = Category::pluck('name', 'id')->all();
             $view->with('categories', $categories);
         });

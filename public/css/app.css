@@ -10265,3 +10265,7 @@ textarea.form-control-lg {
   text-decoration: unset !important;
   color: unset !important;
 }
+
+.footer-link {
+  list-style-type: none !important;
+}
