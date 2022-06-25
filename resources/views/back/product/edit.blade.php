@@ -16,13 +16,18 @@
                         <img src="{{asset('/images/' . $product->picture->link)}}" alt="" style="width: 25rem !important" class="mb-4">
                     @endif
                     <input class="form-control" type="file" id="picture" name="picture" />
+                    @error('picture')
+                        <div class="w-100 alert alert-danger mt-3" role="alert">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="col-12">
                     <label for="title" class="form-label">Titre</label>
                     <input type="text" id="title" name="title" class="form-control" value="{{ $product ? old('title', $product->title) : '' }}">
                     @error('title')
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger mt-3" role="alert">
                             {{$message}}
                         </div>
                     @enderror
@@ -32,7 +37,7 @@
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="description" name="description" rows="3" style="resize: none">{{ $product ? old('description', $product->description) : '' }}</textarea>
                     @error('description')
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger mt-3" role="alert">
                             {{$message}}
                         </div>
                     @enderror
@@ -66,7 +71,7 @@
                     <label for="price" class="form-label">Prix</label>
                     <input type="number" id="price" name="price" step="0.01" class="form-control" value="{{ $product ? old('price', $product->price) : '' }}">
                     @error('price')
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger mt-3" role="alert">
                             {{$message}}
                         </div>
                     @enderror
@@ -76,7 +81,7 @@
                     <label for="productRef" class="form-label">Référence du produit</label>
                     <input type="text" id="productRef" name="productRef" class="form-control" value="{{ $product ? old('productRef', $product->productRef) : '' }}">
                     @error('productRef')
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger mt-3" role="alert">
                             {{$message}}
                         </div>
                     @enderror

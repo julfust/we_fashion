@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Size;
@@ -63,7 +64,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $productRequest)
+    public function store(CreateProductRequest $productRequest)
     {
         $product = Product::create($productRequest->all());
         $product->sizes()->attach($productRequest->sizes);
@@ -140,29 +141,42 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $productRequest, $id)
+    public function update(UpdateProductRequest $productRequest, $id)
     {
+
         $product = Product::find($id);
-        $product->update($productRequest->all());
+        $pictureFileName = explode('/', $product->picture->link)[1];
 
         // Check if there's new file
         if($productRequest->file('picture')) {
 
-            $productCategory = $product->category ? $product->category->name : 'undefined-category';
+            $newCategoryName = $productRequest->category_id ? Category::find($productRequest->category_id)->name : 'undefined-category';
 
             // Get uploaded file data
             $file = $productRequest->file('picture');
-            $filename = date('YmdHi').$file->getClientOriginalName();
+            $pictureFileName = date('YmdHi').$file->getClientOriginalName();
 
             // Registrer new file into storage
-            $file->move(public_path('images/' . $productCategory), $filename);
+            $file->move(public_path('images/' . $newCategoryName), $pictureFileName);
 
             // Delete old file from storage
             Storage::delete('/' . $product->picture->link);
 
             // Set new file name of updated product into database
-            $product->picture()->update(['link' => $productCategory . '/' . $filename]);
+            $product->picture()->update(['link' => $newCategoryName . '/' . $pictureFileName]);
         }
+
+        if((!$product->category && $productRequest->category_id) || ($product->category && $productRequest->category_id != $product->category->id)) {
+
+            $oldCategoryName = $product->category ? $product->category->name : 'undefined-category';
+            $newCategoryName = Category::find($productRequest->category_id)->name;
+            
+            Storage::move('/' . $oldCategoryName . '/' . $pictureFileName, '/' . $newCategoryName . '/' . $pictureFileName);
+
+            $product->picture()->update(['link' => $newCategoryName . '/' . $pictureFileName]);
+        }
+
+        $product->update($productRequest->all());
 
         $product->sizes()->sync($productRequest->sizes);
 
@@ -177,7 +191,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+
+        Storage::delete('/' . $product->picture->link);
+
         $product->delete();
+
         return redirect()->back()->with('message', "Produit supprimé");
     }
 }
