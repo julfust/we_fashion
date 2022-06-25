@@ -1,7 +1,7 @@
-<nav style="background-color: #e6e9ed !important;" class="navbar navbar-expand-lg mt-4">
+<nav style="background-color: #e6e9ed !important" class="navbar navbar-expand-lg mt-4">
     <div class="container-fluid">
 
-        <a style="color: #66EB9A; !important;" class="navbar-brand fs-4 fw-semibold" href="{{!Auth::check() ? url('/') : '#'}}">We fashion</a>
+        <a style="color: #66EB9A !important" class="navbar-brand fs-4 fw-semibold" href="{{!Auth::check() ? url('/') : '#'}}">We fashion</a>
 
         <div class="collapse navbar-collapse" id="navbarText">
 
@@ -40,7 +40,7 @@
                         document.getElementById('logout-form').submit();">
                         <button class="btn btn-outline-danger">Déconnexion</button>
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
                         {{ csrf_field() }}
                     </form>
                 @else

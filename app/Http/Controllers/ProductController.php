@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -40,11 +41,6 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $sizes = Size::all();
-        
-        $productCategoryId = null;
-        $checkedSizes = [];
-        $isPublished = false;
-        $isPromoted = false;
 
         return view(
             'back.product.edit', 
@@ -52,10 +48,11 @@ class ProductController extends Controller
                 'product' => null, 
                 'categories' => $categories, 
                 'sizes' => $sizes,
-                'productCategoryId' => $productCategoryId, 
-                'checkedSizes' => $checkedSizes,
-                'isPublished' => $isPublished,
-                'isPromoted' => $isPromoted
+                'productPictureLink' => null, 
+                'productCategoryId' => null, 
+                'checkedSizes' => [],
+                'isPublished' => false,
+                'isPromoted' => false
             ]
         );
     }
@@ -70,6 +67,22 @@ class ProductController extends Controller
     {
         $product = Product::create($productRequest->all());
         $product->sizes()->attach($productRequest->sizes);
+
+        // Check if there's new file
+        if($productRequest->file('picture')) {
+
+            $productCategory = $product->category ? $product->category->name : 'undefined-category';
+
+            // Get uploaded file data
+            $file = $productRequest->file('picture');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+
+            // Registrer new file into storage
+            $file->move(public_path('images/' . $productCategory), $filename);
+
+            // Set new file name of updated product into database
+            $product->picture()->create(['link' => $productCategory . '/' . $filename]);
+        }
 
         return redirect()->route('products.index')->with('message', 'Produit ajouté !');
     }
@@ -99,26 +112,23 @@ class ProductController extends Controller
         $categories = Category::all();
         $sizes = Size::all();
         
-        $productCategoryId = $product->category ? $product->category->id : null;
         $checkedSizes = [];
 
         foreach($product->sizes as $size) {
             $checkedSizes[] = $size->id;
         }
 
-        $isPublished = $product->isPublished === 1;
-        $isPromoted = $product->isPromoted === 1;
-
         return view(
             'back.product.edit',
             [
                 'product' => $product, 
                 'categories' => $categories, 
-                'sizes' => $sizes, 
-                'productCategoryId' => $productCategoryId, 
+                'sizes' => $sizes,
+                'productPictureLink' => $product->picture->link, 
+                'productCategoryId' => $product->category ? $product->category->id : null, 
                 'checkedSizes' => $checkedSizes,
-                'isPublished' => $isPublished,
-                'isPromoted' => $isPromoted
+                'isPublished' => $product->isPublished === 1,
+                'isPromoted' => $product->isPromoted === 1
             ]
         );
     }
@@ -135,7 +145,27 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->update($productRequest->all());
 
+        // Check if there's new file
+        if($productRequest->file('picture')) {
+
+            $productCategory = $product->category ? $product->category->name : 'undefined-category';
+
+            // Get uploaded file data
+            $file = $productRequest->file('picture');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+
+            // Registrer new file into storage
+            $file->move(public_path('images/' . $productCategory), $filename);
+
+            // Delete old file from storage
+            Storage::delete('/' . $product->picture->link);
+
+            // Set new file name of updated product into database
+            $product->picture()->update(['link' => $productCategory . '/' . $filename]);
+        }
+
         $product->sizes()->sync($productRequest->sizes);
+
         return redirect()->route('products.index')->with('message', 'Modification enregistré');
     }
 

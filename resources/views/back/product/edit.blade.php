@@ -4,11 +4,19 @@
 
     <div class="w-full d-flex flex-column justify-content-start align-items-center py-5">
         
-        <form action="{{ !$product ? route('products.store') : route('products.update', $product->id) }}" method="POST" class="w-50">
+        <form action="{{ !$product ? route('products.store') : route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="w-50">
             @csrf
             @method(!$product ? 'POST' : 'PUT')
 
             <div class="row g-3">
+
+                <div class="col-12 d-flex flex-column justify-content-start align-items-center">
+                    <label for="picture" class="form-label mb-3">Image</label>
+                    @if(old('picture', $productPictureLink))
+                        <img src="{{asset('/images/' . $product->picture->link)}}" alt="" style="width: 25rem !important" class="mb-4">
+                    @endif
+                    <input class="form-control" type="file" id="picture" name="picture" />
+                </div>
 
                 <div class="col-12">
                     <label for="title" class="form-label">Titre</label>
@@ -22,7 +30,7 @@
 
                 <div class="col-12">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" style="resize: none;">{{ $product ? old('description', $product->description) : '' }}</textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3" style="resize: none">{{ $product ? old('description', $product->description) : '' }}</textarea>
                     @error('description')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}

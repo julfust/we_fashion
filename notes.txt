@@ -96,11 +96,10 @@ Oragnisation:
 6) Intégration systeme de validation (formulaire product et category) V
 
 7) Finalisation partie cliente:
--> Filtrage liste des produits categories
--> Formulaire achat d'un produit
+-> Filtrage liste des produits categories V
 
 8) Finalisation partie admin:
--> Upload image produit
+-> Upload image produit V
 
 9) Intégration footer
 

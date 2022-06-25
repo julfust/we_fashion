@@ -9,6 +9,8 @@ class Picture extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['link'];
+
     public function products(){
         return $this->belongsTo(Book::class);
     }
