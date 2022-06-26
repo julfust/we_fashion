@@ -3,7 +3,6 @@ Lien github: https://github.com/julfust/we_fashion
 Installation package:
 -> composer require: installation packages php (vendor)
 -> npm install: installation packagse js (nodes_modules)
--> npm run dev: recompilation des fichiers ("npm run watch" pour le mode automatique)
 
 Migration database:
 -> Dans le fichier .env modifier le paramètre DB_DATABASE=we_fashion
