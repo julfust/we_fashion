@@ -60,13 +60,33 @@
                     <a class="btn btn-primary" href="{{route('products.edit', $product->id)}}">Modifier</a>
                 </td>
                 <td>
-                    <form action="{{route('products.destroy', $product->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" type="submit">Supprimer</button>
-                    </form>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="{{ '#exampleModal-' . $loop->index }}">Supprimer</button>
                 </td>
             </tr>
+
+            <div class="modal fade" id="{{ 'exampleModal-' . $loop->index }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Suppression d'un produit</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Etes-vous sûre de vouloir supprimer le produit: "{{$product->title}}" ?
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        <form action="{{route('products.destroy', $product->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" type="submit">Supprimer</button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
         @empty
             <div>
                 <p>Aucun produits</p>

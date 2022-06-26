@@ -25,7 +25,7 @@
 
                 <div class="col-12">
                     <label for="title" class="form-label">Titre</label>
-                    <input type="text" id="title" name="title" class="form-control" value="{{ $product ? old('title', $product->title) : '' }}">
+                    <input type="text" id="title" name="title" class="form-control" value="{{ $product ? old('title', $product->title) : old('title') }}">
                     @error('title')
                         <div class="alert alert-danger mt-3" role="alert">
                             {{$message}}
@@ -35,7 +35,7 @@
 
                 <div class="col-12">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" style="resize: none">{{ $product ? old('description', $product->description) : '' }}</textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3" style="resize: none">{{ $product ? old('description', $product->description) : old('description') }}</textarea>
                     @error('description')
                         <div class="alert alert-danger mt-3" role="alert">
                             {{$message}}
@@ -50,7 +50,11 @@
                             <option value="" disabled selected>Veuillez sélectionner une catégorie</option>
                         @endif
                         @forelse($categories as $category)
-                            <option value="{{$category->id}}" {{ $productCategoryId === $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                            @if($productCategoryId)
+                                <option value="{{$category->id}}" {{ $productCategoryId === $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                            @else
+                                <option value="{{$category->id}}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                            @endif
                         @empty
                             <p>Aucune categories disponibles actuellement</p>
                         @endforelse
@@ -69,7 +73,7 @@
 
                 <div class="col-12">
                     <label for="price" class="form-label">Prix</label>
-                    <input type="number" id="price" name="price" step="0.01" class="form-control" value="{{ $product ? old('price', $product->price) : '' }}">
+                    <input type="number" id="price" name="price" step="0.01" class="form-control" value="{{ $product ? old('price', $product->price) : old('price') }}">
                     @error('price')
                         <div class="alert alert-danger mt-3" role="alert">
                             {{$message}}
@@ -79,7 +83,7 @@
 
                 <div class="col-12">
                     <label for="productRef" class="form-label">Référence du produit</label>
-                    <input type="text" id="productRef" name="productRef" class="form-control" value="{{ $product ? old('productRef', $product->productRef) : '' }}">
+                    <input type="text" id="productRef" name="productRef" class="form-control" value="{{ $product ? old('productRef', $product->productRef) : old('productRef') }}">
                     @error('productRef')
                         <div class="alert alert-danger mt-3" role="alert">
                             {{$message}}
@@ -90,11 +94,19 @@
                 <div class="col-12">
                     <p>Publier sur le site</p>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="isPublished" name="isPublished" value="1" {{ $isPublished ? 'checked' : '' }}>
-                        <label class="form-check-label" for="isPublished">Oui</label>
+                        @if($product)
+                            <input class="form-check-input" type="radio" id="isPublished" name="isPublished" value="1" {{ $isPublished ? 'checked' : '' }}>
+                        @else
+                            <input class="form-check-input" type="radio" id="isPublished" name="isPublished" value="1" {{ old('isPublished') ? 'checked' : '' }}>
+                        @endif
+                            <label class="form-check-label" for="isPublished">Oui</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="isPublished" name="isPublished" value="0" {{ !$isPublished ? 'checked' : '' }}>
+                        @if($product)
+                            <input class="form-check-input" type="radio" id="isPublished" name="isPublished" value="1" {{ !$isPublished ? 'checked' : '' }}>
+                        @else
+                            <input class="form-check-input" type="radio" id="isPublished" name="isPublished" value="1" {{ !old('isPublished') ? 'checked' : '' }}>
+                        @endif
                         <label class="form-check-label" for="isPublished">Non</label>
                     </div>
                 </div>
@@ -102,11 +114,19 @@
                 <div class="col-12">
                     <p>Mettre en promotion</p>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="isPromoted" name="isPromoted" value="1" {{ $isPromoted ? 'checked' : '' }}>
+                        @if($product)
+                            <input class="form-check-input" type="radio" id="isPromoted" name="isPromoted" value="1" {{ $isPromoted ? 'checked' : '' }}>
+                        @else
+                            <input class="form-check-input" type="radio" id="isPromoted" name="isPromoted" value="1" {{ old('isPromoted') ? 'checked' : '' }}>
+                        @endif
                         <label class="form-check-label" for="isPublished">Oui</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="isPromoted" name="isPromoted" value="0" {{ !$isPromoted ? 'checked' : '' }}>
+                        @if($product)
+                            <input class="form-check-input" type="radio" id="isPromoted" name="isPromoted" value="1" {{ !$isPromoted ? 'checked' : '' }}>
+                        @else
+                            <input class="form-check-input" type="radio" id="isPromoted" name="isPromoted" value="1" {{ !old('isPromoted') ? 'checked' : '' }}>
+                        @endif
                         <label class="form-check-label" for="isPublished">Non</label>
                     </div>
                 </div>
